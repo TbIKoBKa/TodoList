@@ -1,17 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import TodoList from './TodoList.js'
+
+let TodoListData = {
+  title: 'Список дел',
+  tasks: [
+    {
+      id: 1,
+      name: 'Задача 1',
+      completed: false
+    },
+    {
+      id: 2,
+      name: 'Задача 2',
+      completed: false
+    },
+    {
+      id: 3,
+      name: 'Задача 3',
+      completed: false
+    }
+  ]
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TodoList data={TodoListData}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
