@@ -19,7 +19,7 @@ let TodoListData = {
     {
       id: 3,
       name: 'Задача 3',
-      completed: false
+      completed: true
     }
   ]
 };
