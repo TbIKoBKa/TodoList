@@ -10,9 +10,8 @@ class TodoListAddTask extends React.Component
         this.state = { newItem: ''};
     }
 
-    handleChange(e)
+    handleChange(value)
     {
-        const value = e.target.value;
         this.setState({ newItem: value });
     }
 
@@ -28,7 +27,7 @@ class TodoListAddTask extends React.Component
     {
         return(
             <form className="todoListAddForm" onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Название новой задачи..." onChange={this.handleChange} value={this.state.newItem}></input>
+                <input type="text" placeholder="Название новой задачи..." onChange={(e) => this.handleChange(e.target.value)} value={this.state.newItem}></input>
                 <input type="submit" value="Добавить"></input>
             </form>
         )

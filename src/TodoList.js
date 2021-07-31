@@ -6,48 +6,42 @@ import React from 'react';
 
 class TodoList extends React.Component
 {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
         this.DeleteItem = this.DeleteItem.bind(this);
         this.AddItem = this.AddItem.bind(this);
+        this.onChangeComplete = this.onChangeComplete.bind(this)
         this.state = { list: props.data.tasks };
     }
 
-    DeleteItem(id)
-    {
-        let deleteIndex = 0, newList = this.state.list.slice();
+    onChangeComplete(id) {
+        let list = this.state.list.map(item => {
+            if(item.id === id)
+                    item.completed = !item.completed
+                return item
+        })
+        this.setState({ list });
+    }
 
-        for(let i = 0; i < newList.length; i++)
-        {
-            if(id === newList[i].id)
-            {
-                deleteIndex = i;
-                break;
-            }
-        }
-
-        newList.splice(deleteIndex, 1);
+    DeleteItem(id) {
+        let newList = this.state.list.filter(item => item.id !== id)
         this.setState({ list: newList });
     }
 
-    AddItem(value)
-    {
-        let newlist = this.state.list.slice();
-        newlist.push({id: Date.now(), name: value});
-        this.setState({ list: newlist});
+    AddItem(value) {
+        let newList = [...this.state.list, {id: Date.now(), name: value, completed: false}]
+        this.setState({ list: newList});
     }
 
-    render()
-    {
-        let tasks = this.state.list.map(task => {
-            return <TodoListItem key={task.id} data={task} onRemove={this.DeleteItem}/>    
-        })
-
+    render() {
         return(
             <div className="todoList">
                 <h1 className="todoList-title">{this.props.data.title}</h1>
-                {tasks}
+                {
+                    this.state.list.length > 0
+                    ? this.state.list.map(task => <TodoListItem key={task.id} data={task} onRemove={this.DeleteItem} onChange={this.onChangeComplete}/>)
+                    : <h2>Список пуст :(</h2>
+                }
                 <TodoListAddTask onSubmit={this.AddItem}/>
             </div>
         )
